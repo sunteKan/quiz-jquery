@@ -1,11 +1,8 @@
 @charset "UTF-8";
-* {
-    font-family: serif;
-}
-
 body {
     text-align: center;
     padding: 0 5%;
+    font-family: serif;
 }
 
 
@@ -37,6 +34,8 @@ body {
     z-index: 11;
 }
 
+
+/*---  デザイン検討中の為コメントアウト
 #startInline {
     border: 5px solid black;
     border-radius: 5px;
@@ -46,8 +45,8 @@ body {
     position: fixed;
     top: 2.5%;
     left: 5%;
-    z-index: 12;
-}
+    z-index: 10;
+}*/
 
 #explanation {
     margin: 5% 10% 0;
@@ -210,6 +209,7 @@ body {
     background-color: thistle;
 }
 
+
 /*--- 正解時に表示する画面 ---*/
 
 #correctWindow {
@@ -243,7 +243,7 @@ body {
     z-index: 11;
 }
 
-#incorrectWindow img{
+#incorrectWindow img {
     margin-top: 10%;
 }
 
@@ -257,6 +257,7 @@ body {
     font-size: 3.5rem;
     font-weight: bold;
 }
+
 
 /*--- 結果発表を表示するエリア ---*/
 
