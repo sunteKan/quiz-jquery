@@ -151,6 +151,7 @@ $(function () {
                 $('#backWindow,#correctWindow').fadeIn();
                 score++;
             }
+            console.log(quiz);
             //不正解だった時の処理。
             else {
                 $('#incorrectWindow').append(
