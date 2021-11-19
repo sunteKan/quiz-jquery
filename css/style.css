@@ -317,4 +317,13 @@ body {
         top: 55%;
         left: 9%;
     }
+
+    .close{
+        width: auto;
+    }
+
+    .result{
+        margin-top: 25%;
+    }
+
 }
