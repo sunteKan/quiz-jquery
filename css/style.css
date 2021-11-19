@@ -318,8 +318,16 @@ body {
         left: 9%;
     }
 
+    #choiceArea {
+        font-size: 1.5rem;
+    }
+
     img{
         max-width: 90%;
+    }
+
+    .correct {
+        font-size: 2rem;
     }
 
     .close{
