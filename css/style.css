@@ -314,6 +314,7 @@ body {
 
     #choiceCategory {
         width: auto;
+        top: 55%;
         left: 9%;
     }
 }
