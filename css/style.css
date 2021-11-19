@@ -306,6 +306,7 @@ body {
     color: black;
 }
 
+/* レスポンシブデザイン */
 @media screen and (max-width: 400px) {
 
     #explanation{
@@ -316,6 +317,15 @@ body {
         width: auto;
         top: 55%;
         left: 9%;
+    }
+
+    .modeEazy{
+        left: 10%;
+    }
+
+    .modeEazy,
+    .modeBasic{
+        width: auto;
     }
 
     #choiceArea {
