@@ -372,4 +372,8 @@ body {
         width: auto;
     }
 
+    .result{
+        margin-top: 25%;
+    }
+
 }
