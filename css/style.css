@@ -349,3 +349,27 @@ body {
     }
 
 }
+
+@media screen  and (min-width:400px ) and ( max-width: 550px){
+    #explanation{
+        font-size: 18px;
+    }
+
+    #choiceCategory {
+        top: 60%;
+    }
+
+    .modeEazy,
+    .modeBasic{
+        width: auto;
+    }
+
+    #choiceArea {
+        font-size: 1.7rem;
+    }
+
+    .close{
+        width: auto;
+    }
+
+}
