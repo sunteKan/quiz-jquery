@@ -307,14 +307,13 @@ body {
 }
 
 @media screen and (max-width: 400px) {
-    
+
     #explanation{
         font-size: 15px;
     }
 
     #choiceCategory {
         width: auto;
-        top: 65%;
         left: 9%;
     }
 }
