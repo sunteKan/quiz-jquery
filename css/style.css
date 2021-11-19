@@ -350,7 +350,7 @@ body {
 
 }
 
-@media screen  and (min-width:400px ) and ( max-width: 550px){
+@media screen  and (min-width:401px ) and ( max-width: 560px){
     #explanation{
         font-size: 18px;
     }
