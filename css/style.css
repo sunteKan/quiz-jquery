@@ -306,7 +306,10 @@ body {
     color: black;
 }
 
-@media screen and (min-width:400px) {    
+@media screen and (min-width:400px) {
+    #explanation{
+        font-size: 1rem;
+    }
 #choiceCategory {
     width: auto;
     top: 65%;
