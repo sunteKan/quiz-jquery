@@ -306,74 +306,38 @@ body {
     color: black;
 }
 
-/* レスポンシブデザイン */
-@media screen and (max-width: 400px) {
 
-    #explanation{
+/* レスポンシブデザイン */
+
+@media screen and (max-width: 550px) {
+    #explanation {
         font-size: 15px;
     }
-
     #choiceCategory {
         width: auto;
         top: 55%;
         left: 9%;
     }
-
-    .modeEazy{
+    .modeEazy {
         left: 10%;
     }
-
     .modeEazy,
-    .modeBasic{
+    .modeBasic {
         width: auto;
     }
-
     #choiceArea {
         font-size: 1.5rem;
     }
-
-    img{
+    img {
         max-width: 90%;
     }
-
     .correct {
         font-size: 2rem;
     }
-
-    .close{
+    .close {
         width: auto;
     }
-
-    .result{
+    .result {
         margin-top: 25%;
     }
-
-}
-
-@media screen  and (min-width:401px ) and ( max-width: 560px){
-    #explanation{
-        font-size: 18px;
-    }
-
-    #choiceCategory {
-        top: 60%;
-    }
-
-    .modeEazy,
-    .modeBasic{
-        width: auto;
-    }
-
-    #choiceArea {
-        font-size: 1.7rem;
-    }
-
-    .close{
-        width: auto;
-    }
-
-    .result{
-        margin-top: 25%;
-    }
-
 }
