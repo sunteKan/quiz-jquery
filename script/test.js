@@ -109,7 +109,7 @@ $(function () {
         });
     };
 
-    /*--- 3.クイズを出題する関数。---*/
+    /*--- 2.クイズを出題する関数。---*/
     function quizMaker() {
         //クイズの種類を表示する。
         $('#quizCategory').append(
@@ -172,7 +172,7 @@ $(function () {
         }, 5000);
     };
 
-    /*--- 4.問題が終わり、次の処理を行う関数。---*/
+    /*--- 3.問題が終わり、次の処理を行う関数。---*/
     function quizEnd() {
         //正誤の結果を表示する画面を削除
         clearTimeout(commentaryTime);
@@ -196,7 +196,7 @@ $(function () {
         }
     }
 
-    /*--- 5.結果発表処理を行う関数。---*/
+    /*--- 4.結果発表処理を行う関数。---*/
     function result() {
         //時間計測の終了。
         const endTime = Date.now();
@@ -225,17 +225,25 @@ $(function () {
 
 /*--- 配列をランダムにするコールバック関数 ---*/
 function shuffle(array) {
+    //引数に与えられた配列の長さを読み込む。
     let arrayLength = array.length;
+    //空の配列を用意する。
     let newArray = [];
+    //引数に与えられた配列すべてに処理を施す。
     for (let i = 0; i < arrayLength; i++) {
         let arrayLength = array.length;
+        //配列の数を超えないランダムな数
         let randomSelect = Math.floor(Math.random() * arrayLength);
+        //ランダムに選定された数番目の配列値を空の配列に入れる。
         newArray.push(array[randomSelect]);
+        //重複しないように元配列から削除する。
         array.splice(randomSelect, 1);
     };
+    //元の変数名のまま使えるように配列の値を戻す。
     let newArrayLength = newArray.length;
     for (let i = 0; i < newArrayLength; i++) {
         array.push(newArray[i]);
     }
+    //引数を変数名だけ変えずに返す。
     return array;
 };
