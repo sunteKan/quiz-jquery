@@ -128,7 +128,7 @@ $(function () {
             );
         };
         //制限時間の可視化(タイマー起動)。
-        $('#timeRimain').animate({ marginRight: '100%' }, 5000);
+        $('#timeRimain').animate({ marginRight: '100%' }, 10000);
 
         //選択肢ボタンをクリックした時の処理。
         $('.choice').on('click', function () {
@@ -154,7 +154,7 @@ $(function () {
             }
             //ボタンの処理を終え次のステップを行う。
             clearTimeout(commentaryTime);
-            commentaryTime = setTimeout(quizEnd, 2000);
+            commentaryTime = setTimeout(quizEnd, 3000);
         });
 
         //制限時間までに答えを選択できなかったときの処理。
@@ -164,12 +164,12 @@ $(function () {
             $('#incorrectWindow').append(
                 $(`<p class="correct">正解は「<strong>${quiz[quizCount].answer}</strong>」です。</p>`)
             );
-            //表示から2秒後に取り除かれる。
+            //表示から3秒後に取り除かれる。
             $('#backWindow,#incorrectWindow').fadeIn();
             setTimeout(function () {
                 quizEnd();
-            }, 2000);
-        }, 5000);
+            }, 3000);
+        }, 10000);
     };
 
     /*--- 3.問題が終わり、次の処理を行う関数。---*/
@@ -206,13 +206,13 @@ $(function () {
         $('#backWindow, #resultWindow').fadeIn();
         $('.result').append(
             `<p>お疲れさまでした。</p>
-            <p>あなたの正解数は<strong>${score}</strong>問です。</p>
-            <p>正当率は<strong>${Math.floor((score / quizCount) * 100)}%</strong>です。</p>
+            <p>あなたの正解数は<strong>${score}</strong>問</p>
+            <p>正当率：<strong>${Math.floor((score / quizCount) * 100)}%</strong></p>
             <p>かかったタイムは
             <strong>
             ${Math.floor(timeScore / 60000)}分
-            ${Math.floor(timeScore / 1000)}秒.
-            ${Math.floor(timeScore / 100)}
+            ${Math.floor(timeScore / 1000)}.
+            ${Math.floor(timeScore / 100)}秒
             </strong>です。</p>`
         );
         //閉じるボタンの処理。
