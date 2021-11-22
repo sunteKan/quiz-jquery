@@ -85,10 +85,11 @@ $(function () {
                 categoryCount++;
             };
 
-            /*let quizCategory = quiz.category;
-            for (let i = 0; i < quizLength; i++) {
-                quizCategory.filter(radioVal);
-            }*/
+            /*if (checked) {
+                quiz.splice(quiz.filter(item => item.category !== radioVal), 1);
+            } else if (radioVal === undefined || radioVal === null) {
+            }
+            console.log(quiz);*/
 
             shuffle(quizSort);
 
@@ -201,7 +202,7 @@ $(function () {
         //時間計測の終了。
         const endTime = Date.now();
         //問題スタートから経過した時間。
-        const timeScore = endTime - startTimer - 2000 * quizCount;
+        const timeScore = endTime - startTimer - 3000 * quizCount;
         //結果スコアの表示。
         $('#backWindow, #resultWindow').fadeIn();
         $('.result').append(
