@@ -13,15 +13,15 @@ $(function () {
     let radioCount = 0;
     let pullCount = 0;
     let categoryCount = 0;
-    const quizSort = [];
     const quizRadio = [];
+    const quizSort = [];
 
     //クイズが出題される行程で使われる変数定数
-    const newQuiz = [];
     let timer = null;
     let commentaryTime = null;
-    let startTime = null;
+    let startTimer = null;
 
+    //初期画面の表示させる関数を呼び出す。
     start();
 
     /*--- ラジオボタンの作成 ---*/
@@ -37,9 +37,9 @@ $(function () {
     while (radioCount < radioLength) {
         $('#choiceCategory').append(
             $(`<label>
-    <input type="radio" name="category" value="${radio[radioCount]}" >
-    ${radio[radioCount]}
-    </label>`)
+            <input type="radio" name="category" value="${radio[radioCount]}" >
+            ${radio[radioCount]}
+            </label>`)
         );
         radioCount++;
     };
@@ -69,9 +69,9 @@ $(function () {
         $('#startWindow').fadeIn();
         //難易度選択をされたときに行う。
         $('.modeEazy,.modeBasic').click(function () {
+            startTimer = Date.now();
             //絞り込みボタンの読み込み
             const radioVal = $("input[name='category']:checked").val();
-            console.log(radioVal);
             //ラジオボタンの選択によって処理を変動する。
             while (categoryCount < quizLength) {
                 //絞り込み通りのクイズのみをピックアップ
@@ -84,55 +84,49 @@ $(function () {
                 }
                 categoryCount++;
             };
+
+            /*let quizCategory = quiz.category;
+            for (let i = 0; i < quizLength; i++) {
+                quizCategory.filter(radioVal);
+            }*/
+
+            shuffle(quizSort);
+
             //初期画面からクイズ画面へ表示切替を行う。
             $('#backWindow, #startWindow').fadeOut();
             //それぞれのコース内容。
             const modeSelect = $(this).val();
-            console.log(modeSelect);
             //初級コースが選ばれた場合。
             if ('easy' === modeSelect) {
                 //3問出題にしたいので先に3を代入する。
                 quizIndex = 3;
-                quizRandom();
+                quizMaker();
             }
             //普通コースが選ばれた場合。
             if ('basic' === modeSelect) {
-                quizRandom();
+                quizMaker();
             }
         });
     };
-
-    /*--- 2.絞り込まれた問題をランダムにする。---*/
-    function quizRandom() {
-        let randomCount = 0;
-        let sortLength = quizSort.length;
-        //クイズ配列の問題すべてに処理を施す。
-        while (randomCount < sortLength) {
-            let sortLength = quizSort.length;
-            //クイズの表示順をランダムに選定する。
-            let quizSelectNo = Math.floor(Math.random() * sortLength);
-            //ランダムに選定されたクイズを順に格納していく。
-            newQuiz.push(quizSort[quizSelectNo]);
-            //クイズが重複しないように選定されたクイズを削除する。
-            quizSort.splice(quizSelectNo, 1);
-            randomCount++;
-        };
-        //時間の計測開始
-        startTime = Date.now();
-        //すべてランダムに順序を入れ替えたのちにクイズを出題していく。
-        quizMaker();
-    }
 
     /*--- 3.クイズを出題する関数。---*/
     function quizMaker() {
         //クイズの種類を表示する。
         $('#quizCategory').append(
-            $(`<h1>クイズの種類：「${newQuiz[quizCount].category}」からの出題。</h1>)`)
+            $(`<h1>クイズの種類：「${quizSort[quizCount].category}」からの出題。</h1>)`)
         );
         //クイズの問題文章を表示する。
-        $('#quizArea').text(newQuiz[quizCount].text);
+        $('#quizArea').text(quizSort[quizCount].text);
         //問題の選択肢を表示する。
-        choiceMaker();
+        shuffle(quizSort[quizCount].choice);
+        let choiceLength = quizSort[quizCount].choice.length;
+        for (let i = 0; i < choiceLength; i++) {
+            $('#choiceArea').append(
+                $(`<button class="choice" value="${quizSort[quizCount].choice[i]}">
+            ${quizSort[quizCount].choice[i]}
+        </button>`)
+            );
+        };
         //制限時間の可視化(タイマー起動)。
         $('#timeRimain').animate({ marginRight: '100%' }, 5000);
 
@@ -144,7 +138,7 @@ $(function () {
             //クリックされたボタンの内容を読み取る。
             const choiceSelect = $(this).val();
             //正解だった時の処理。
-            if (newQuiz[quizCount].answer === choiceSelect) {
+            if (quizSort[quizCount].answer === choiceSelect) {
                 $('#correctWindow').append(
                     $(`<p class="correct">正解です！<br>おめでとうございます！！</p>`)
                 );
@@ -154,7 +148,7 @@ $(function () {
             //不正解だった時の処理。
             else {
                 $('#incorrectWindow').append(
-                    $(`<p class="correct">正解は「${newQuiz[quizCount].answer}」です。</p>`)
+                    $(`<p class="correct">正解は「${quizSort[quizCount].answer}」です。</p>`)
                 );
                 $('#backWindow,#incorrectWindow').fadeIn();
             }
@@ -166,36 +160,17 @@ $(function () {
         //制限時間までに答えを選択できなかったときの処理。
         clearTimeout(timer);
         timer = setTimeout(function () {
+            //不正解時と同じように答えを画面に表示する。
             $('#incorrectWindow').append(
-                $(`<p class="correct">正解は「<strong>${newQuiz[quizCount].answer}</strong>」です。</p>`)
+                $(`<p class="correct">正解は「<strong>${quiz[quizCount].answer}</strong>」です。</p>`)
             );
+            //表示から2秒後に取り除かれる。
             $('#backWindow,#incorrectWindow').fadeIn();
             setTimeout(function () {
                 quizEnd();
             }, 2000);
         }, 5000);
     };
-
-    /*---任意問題の選択肢を表示する関数。---*/
-    function choiceMaker() {
-        let choiceCount = 0;
-        let choiceLength = newQuiz[quizCount].choice.length;
-        //問題の選択肢をすべて表示する。
-        while (choiceCount < choiceLength) {
-            //ボタンの表示順をランダムに選定する。
-            let choiceLength = newQuiz[quizCount].choice.length;
-            let choiceSlectNo = Math.floor(Math.random() * choiceLength);
-            //選択肢を順にボタン格納していく。
-            $('#choiceArea').append(
-                $(`<button class="choice" value="${newQuiz[quizCount].choice[choiceSlectNo]}">
-                    ${newQuiz[quizCount].choice[choiceSlectNo]}
-                </button>`)
-            );
-            //選択肢が重複しないよう、ランダムに選定された任意の選択肢をchoice[]配列から削除する。
-            newQuiz[quizCount].choice.splice(choiceSlectNo, 1);
-            choiceCount++;
-        };
-    }
 
     /*--- 4.問題が終わり、次の処理を行う関数。---*/
     function quizEnd() {
@@ -226,19 +201,19 @@ $(function () {
         //時間計測の終了。
         const endTime = Date.now();
         //問題スタートから経過した時間。
-        const timeScore = endTime - startTime - 2000 * quizCount;
+        const timeScore = endTime - startTimer - 2000 * quizCount;
         //結果スコアの表示。
         $('#backWindow, #resultWindow').fadeIn();
         $('.result').append(
             `<p>お疲れさまでした。</p>
-        <p>あなたの正解数は<strong>${score}</strong>問です。</p>
-        <p>正当率は<strong>${Math.floor((score / quizCount) * 100)}%</strong>です。</p>
-        <p>かかったタイムは
-        <strong>
-        ${Math.floor(timeScore / 60000)}分
-        ${Math.floor(timeScore / 1000)}秒.
-        ${Math.floor(timeScore / 100)}
-        </strong>です。</p>`
+            <p>あなたの正解数は<strong>${score}</strong>問です。</p>
+            <p>正当率は<strong>${Math.floor((score / quizCount) * 100)}%</strong>です。</p>
+            <p>かかったタイムは
+            <strong>
+            ${Math.floor(timeScore / 60000)}分
+            ${Math.floor(timeScore / 1000)}秒.
+            ${Math.floor(timeScore / 100)}
+            </strong>です。</p>`
         );
         //閉じるボタンの処理。
         $('.close').click(function () {
@@ -247,3 +222,20 @@ $(function () {
         });
     };
 });
+
+/*--- 配列をランダムにするコールバック関数 ---*/
+function shuffle(array) {
+    let arrayLength = array.length;
+    let newArray = [];
+    for (let i = 0; i < arrayLength; i++) {
+        let arrayLength = array.length;
+        let randomSelect = Math.floor(Math.random() * arrayLength);
+        newArray.push(array[randomSelect]);
+        array.splice(randomSelect, 1);
+    };
+    let newArrayLength = newArray.length;
+    for (let i = 0; i < newArrayLength; i++) {
+        array.push(newArray[i]);
+    }
+    return array;
+};
