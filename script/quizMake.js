@@ -23,7 +23,7 @@ $(function () {
     /*--- 制限時間やタイムスコアに利用するタイマーの変数 ---*/
     let startTimer = null;      //開始から終了まで掛かった時間を計測するタイマー
     let timeLimit = null;       //1問の制限時間
-    let answerTimer = null; //不正解時の解説タイマー
+    let answerTimer = null;     //不正解時の解説タイマー
 
     //初期画面の表示させる関数を呼び出す。
     start();
