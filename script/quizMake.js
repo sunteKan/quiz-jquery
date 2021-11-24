@@ -10,16 +10,16 @@
 $(function () {
     /*--- 上限やスコアなどの変数定数 ---*/
     let score = 0;
-    let quizCount = 0; //クイズが出題された総数
-    let quizIndex = 1; //クイズを出題する数
+    let quizCount = 0;          //クイズが出題された総数
+    let quizIndex = 1;          //クイズを出題する数
     let quizLength = quiz.length;
 
     /*--- 絞り込み行程で使われる変数定数 ---*/
     let radioCount = 0;
     let pullCount = 0;
     let categoryCount = 0;
-    const quizRadio = [];   //絞り込みの種類を格納する配列
-    const quizSort = [];    //絞り込み処理後に格納する配列
+    const quizRadio = [];       //絞り込みの種類を格納する配列
+    const quizSort = [];        //絞り込み処理後に格納する配列
 
     /*--- 制限時間やタイムスコアに利用するタイマーの変数 ---*/
     let startTimer = null;      //開始から終了まで掛かった時間を計測するタイマー
@@ -90,12 +90,7 @@ $(function () {
                 categoryCount++;
             };
 
-            /*if (checked) {
-                quiz.splice(quiz.filter(item => item.category !== radioVal), 1);
-            } else if (radioVal === undefined || radioVal === null) {
-            }
-            console.log(quiz);*/
-
+            //問題の表示順をランダムにしたいのでshuffle関数で処理する。
             shuffle(quizSort);
 
             //初期画面からクイズ画面へ表示切替を行う。
