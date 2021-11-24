@@ -234,7 +234,7 @@ function shuffle(array) {
         let arrayLength = array.length;
         //配列の数を超えないランダムな数
         let randomSelect = Math.floor(Math.random() * arrayLength);
-        //ランダムに選定された数番目の配列値を空の配列に入れる。
+        //ランダムに選定されたrandomSelect番目の配列値を空の配列に入れる。
         newArray.push(array[randomSelect]);
         //重複しないように元配列から削除する。
         array.splice(randomSelect, 1);
