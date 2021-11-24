@@ -116,8 +116,9 @@ $(function () {
         );
         //クイズの問題文章を表示する。
         $('#quizArea').text(quizSort[quizCount].text);
-        //問題の選択肢を表示する。
+        //問題の選択肢の表示をランダムにしたいのでsuffle関数で処理する。
         shuffle(quizSort[quizCount].choice);
+        //選択肢をすべてボタンに格納して表示させる。
         let choiceLength = quizSort[quizCount].choice.length;
         for (let i = 0; i < choiceLength; i++) {
             $('#choiceArea').append(
