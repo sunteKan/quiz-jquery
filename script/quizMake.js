@@ -16,7 +16,6 @@ $(function () {
 
     /*--- 絞り込み行程で使われる変数定数 ---*/
     let radioCount = 0;
-    let pullCount = 0;
     let categoryCount = 0;
     const quizRadio = [];       //絞り込みの種類を格納する配列
     const quizSort = [];        //絞り込み処理後に格納する配列
@@ -31,9 +30,8 @@ $(function () {
 
     /*--- ラジオボタンの作成 ---*/
     //クイズ配列からすべてのcategoryを摘出する。
-    while (pullCount < quizLength) {
-        quizRadio.push(quiz[pullCount].category);
-        pullCount++;
+    for (let i = 0; i < quizLength; i++) {
+        quizRadio.push(quiz[i].category);
     }
     //摘出したcategoryの重複を取り除く。
     let radio = [...new Set(quizRadio)];
