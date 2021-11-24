@@ -207,10 +207,9 @@ $(function () {
         $('.result').append(
             `<p>お疲れさまでした。</p>
             <p>あなたの正解数は<strong>${score}</strong>問</p>
-            <p>正当率：<strong>${Math.floor((score / quizCount) * 100)}%</strong></p>
-            <p>かかったタイムは
+            <p>正解率：<strong>${Math.floor((score / quizCount) * 100)}%</strong></p>
+            <p>かかったタイムは<br>
             <strong>
-            ${Math.floor(timeScore / 60000)}分
             ${Math.floor(timeScore / 1000)}.
             ${Math.floor(timeScore / 100)}秒
             </strong>です。</p>`
