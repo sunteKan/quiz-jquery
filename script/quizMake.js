@@ -22,8 +22,8 @@ $(function () {
 
     /*--- 制限時間やタイムスコアに利用するタイマーの変数 ---*/
     let startTimer = null;      //開始から終了まで掛かった時間を計測するタイマー
-    let quizTimer = null;       //1問の制限時間
-    let commentaryTimer = null; //不正解時の解説タイマー
+    let timeLimit = null;       //1問の制限時間
+    let answerTimer = null; //不正解時の解説タイマー
 
     //初期画面の表示させる関数を呼び出す。
     start();
@@ -74,15 +74,15 @@ $(function () {
         $('.modeEazy,.modeBasic').click(function () {
             startTimer = Date.now();
             //絞り込みボタンの読み込み
-            const radioVal = $("input[name='category']:checked").val();
+            const radioValue = $("input[name='category']:checked").val();
             //ラジオボタンの選択によって処理を変動する。
             while (categoryCount < quizLength) {
                 //絞り込み通りのクイズのみをピックアップ
-                if (radioVal === quiz[categoryCount].category) {
+                if (radioValue === quiz[categoryCount].category) {
                     quizSort.push(quiz[categoryCount]);
                 }
                 //絞り込みが選択されていない場合(そのまま処理)
-                else if (radioVal === undefined || radioVal === null) {
+                else if (radioValue === undefined || radioValue === null) {
                     quizSort.push(quiz[categoryCount]);
                 }
                 categoryCount++;
@@ -116,7 +116,7 @@ $(function () {
         );
         //クイズの問題文章を表示する。
         $('#quizArea').text(quizSort[quizCount].text);
-        //問題の選択肢の表示をランダムにしたいのでsuffle関数で処理する。
+        //問題の選択肢の表示をランダムにしたいのでshuffle関数で処理する。
         shuffle(quizSort[quizCount].choice);
         //選択肢をすべてボタンに格納して表示させる。
         let choiceLength = quizSort[quizCount].choice.length;
@@ -134,7 +134,7 @@ $(function () {
         $('.choice').on('click', function () {
             //制限時間タイマーのストップ
             $('#timeRimain').stop();
-            clearTimeout(quizTimer);
+            clearTimeout(timeLimit);
             //クリックされたボタンの内容を読み取る。
             const choiceSelect = $(this).val();
             //正解だった時の処理。
@@ -153,13 +153,13 @@ $(function () {
                 $('#backWindow,#incorrectWindow').fadeIn();
             }
             //ボタンの処理を終え次のステップを行う。
-            clearTimeout(commentaryTimer);
-            commentaryTimer = setTimeout(quizEnd, 3000);
+            clearTimeout(answerTimer);
+            answerTimer = setTimeout(quizEnd, 3000);
         });
 
         //制限時間までに答えを選択できなかったときの処理。
-        clearTimeout(quizTimer);
-        quizTimer = setTimeout(function () {
+        clearTimeout(timeLimit);
+        timeLimit = setTimeout(function () {
             //不正解時と同じように答えを画面に表示する。
             $('#incorrectWindow').append(
                 $(`<p class="correct">正解は「<strong>${quiz[quizCount].answer}</strong>」です。</p>`)
@@ -175,14 +175,14 @@ $(function () {
     /*--- 3.問題が終わり、次の処理を行う関数。---*/
     function quizEnd() {
         //正誤の結果を表示する画面を削除
-        clearTimeout(commentaryTimer);
+        clearTimeout(answerTimer);
         $('#backWindow,#correctWindow,#incorrectWindow').fadeOut();
         //終了した問題文の削除
         $('#quizArea,#quizCategory').empty();
         //問題選択肢と不正解時の解答を削除
         $('.choice,.correct').remove();
         //タイマー残り時間の復活
-        clearTimeout(quizTimer);
+        clearTimeout(timeLimit);
         $('#timeRimain').css('margin-right', '0');
         //終了工程、最後の分岐
         quizCount++;
