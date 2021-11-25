@@ -140,7 +140,9 @@ $(function () {
             //正解だった時の処理。
             if (quizSort[quizCount].answer === choiceSelect) {
                 $('#correctWindow').append(
-                    $(`<p class="correct">正解です！<br>おめでとうございます！！</p>`)
+                    $(`<p class="correct">正解です！
+                        <br>おめでとうございます！！
+                            </p>`)
                 );
                 $('#backWindow,#correctWindow').fadeIn();
                 score++;
@@ -148,7 +150,9 @@ $(function () {
             //不正解だった時の処理。
             else {
                 $('#incorrectWindow').append(
-                    $(`<p class="correct">正解は「${quizSort[quizCount].answer}」です。</p>`)
+                    $(`<p class="correct">不正解...正解は
+                            <br>「${quizSort[quizCount].answer}」です。
+                                </p>`)
                 );
                 $('#backWindow,#incorrectWindow').fadeIn();
             }
