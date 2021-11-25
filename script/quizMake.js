@@ -112,7 +112,9 @@ $(function () {
     function quizMaker() {
         //クイズの種類を表示する。
         $('#quizCategory').append(
-            $(`<h1>クイズの種類：「${quizSort[quizCount].category}」からの出題。</h1>)`)
+            $(`<h1>クイズの種類：
+                <br>「${quizSort[quizCount].category}」からの出題。
+                    </h1>)`)
         );
         //クイズの問題文章を表示する。
         $('#quizArea').text(quizSort[quizCount].text);
