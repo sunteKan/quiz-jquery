@@ -57,9 +57,9 @@ const quiz = [
         category: "数学",
     },
     {
-        text: "10+20×30は？",
+        text: "10+20+30は？",
         choice: ["60", "70", "80", "90"],
-        answer: "70",
+        answer: "60",
         category: "数学",
     },
     {
@@ -70,7 +70,7 @@ const quiz = [
     },
     {
         text: "(2+1)×20+30は？",
-        choice: ["70", "90", "120", "180"],
+        choice: ["70", "90", "150", "180"],
         answer: "90",
         category: "数学",
     },
